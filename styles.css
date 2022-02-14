@@ -118,3 +118,33 @@ button {
     font-style: normal;
     font-weight: bold;
 }
+
+.low-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 40px;
+    padding: 40px 100px;
+
+    background-color: #3882f6;
+    border-radius: 8px;
+
+    color: white;
+}
+
+.low-content button {
+    border: 2px solid;
+    border-color: white;
+}
+
+.low-content h3, .low-content p {
+    margin: 0px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #1f2937;
+    color: white;
+    padding: 15px;
+}
