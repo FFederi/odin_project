@@ -1,0 +1,29 @@
+body,
+html {
+    height: 100%;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 100px;
+    
+}
+
+button {
+    border: 3px solid black;
+    border-radius:3px;
+    
+}
+
+.result {
+    margin-bottom: 300px;
+}

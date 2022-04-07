@@ -8,24 +8,46 @@ function playRound(playerSelection, computerSelection) {
     computerSelection = computerSelection.toUpperCase();
     if (playerSelection === 'ROCK') { return (
         (computerSelection === 'ROCK') ? 'It\'s a draw!' :
-        (computerSelection === 'PAPER') ?  'You Lose! Paper beats Rock!':
-        'You Win! Rock beats Scissor!')} 
+        (computerSelection === 'PAPER') ? (computerScore+=1, 'You Lose! Paper beats Rock!'):
+        (playerScore+=1, 'You Win! Rock beats Scissor!'))} 
     else if (playerSelection === 'PAPER') { return (
-        (computerSelection === 'ROCK') ?'You Win! Paper beats Rock!' :
+        (computerSelection === 'ROCK') ? (playerScore+=1, 'You Win! Paper beats Rock!') :
         (computerSelection === 'PAPER') ? 'It\'s a draw!' :
-        'You Lose! Scissor beats Paper!')} 
+        (computerScore+=1, 'You Lose! Scissor beats Paper!'))} 
     else { return (
-        (computerSelection === 'ROCK') ?'You Lose! Rock beats Scissor!' :
-        (computerSelection === 'PAPER') ? 'You Win! Scissor beats Paper' :
-        'It\'s a draw!')} 
+        (computerSelection === 'ROCK') ? (computerScore+=1, 'You Lose! Rock beats Scissor!') :
+        (computerSelection === 'PAPER') ? (playerScore+=1, 'You Win! Scissor beats Paper') :
+        'It\'s a draw!')}
 } 
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt('Enter rock, paper or scissor')
-        let computerSelection = computerPlay()
-        console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`)
-        console.log(playRound(playerSelection, computerSelection));
-     }
-     
+
+    const btns = document.querySelectorAll('button');
+    const result = document.querySelector('.result');
+    
+
+
+    btns.forEach((button) => {
+        button.addEventListener('click', () => {
+            let computerSelection = computerPlay()
+            let message = playRound(button.textContent, computerSelection)
+
+            let match = document.createElement('div')
+            match.textContent = `${message} YOU:${playerScore} COMPUTER:${computerScore}`
+            result.appendChild(match)
+            
+            if (computerScore >= 5) {
+                match.textContent = 'COMPUTER WINS'
+                result.appendChild(match)
+            }
+            if (playerScore >=5) {
+                match.textContent = 'PLAYER WINS'
+                result.appendChild(match)
+            }
+        }
+    )})
 }
+
+var playerScore = 0;
+var computerScore = 0;
+game();
