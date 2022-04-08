@@ -1,0 +1,31 @@
+
+html,
+body {
+    height: 100%;
+    margin: 0px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+.button button {
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: red;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.canvas {
+    display: flex;
+    flex-wrap: wrap;
+    height: 960px;
+    width: 960px;
+    
+}
+
+.colored {
+    background-color: black;
+}
