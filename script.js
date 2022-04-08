@@ -10,7 +10,13 @@ function draw () {
     var pix = document.querySelectorAll('.pixel');
 
     pix.forEach((pix) => {
-        pix.addEventListener('mouseenter', () => {
+        if (isMobile) {
+            var drawEvent = "touchmove";
+        } else {
+            var drawEvent = "mouseenter";
+        }
+
+        pix.addEventListener( drawEvent , () => {
             if (pix.style.background === '') {
                 pix.style.background = randomColor();
                 pix.style.filter = 'brightness(100%)';
@@ -60,7 +66,19 @@ function createCanvas (pixelN) {
 }
 
 
+let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+
 var canvas = document.querySelector('.canvas');    
+
+if (isMobile) {
+    canvas.style.height = "390px";
+    canvas.style.width = "390px";
+} else {
+    canvas.style.height = "960px";
+    canvas.style.width = "960px";
+}
+
 
 createCanvas(16);
 

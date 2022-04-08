@@ -4,10 +4,13 @@ body {
     height: 100%;
     margin: 0px;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 
+}
+
+@media only screen and (max-width: 760px) {
+    
 }
 
 .button button {
@@ -21,11 +24,7 @@ body {
 .canvas {
     display: flex;
     flex-wrap: wrap;
-    height: 960px;
-    width: 960px;
+    
 
 }
 
-.colored {
-    background-color: black;
-}
