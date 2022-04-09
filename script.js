@@ -44,14 +44,22 @@ function resetButton () {
             var newSize = prompt('Please insert canvas size (maximum 100)', 16);
         }
 
-
         createCanvas(newSize);
         draw();
     });
 }
 
 function createCanvas (pixelN) {
+
     let canvas = document.querySelector('.canvas');
+
+    if (isMobile) {
+        canvas.style.height = "390px";
+        canvas.style.width = "390px";
+    } else {
+        canvas.style.height = "960px";
+        canvas.style.width = "960px";
+    }
 
     for (let i = 0; i < pixelN; i++) {
         for (let i = 0; i < pixelN; i++) {
@@ -66,19 +74,7 @@ function createCanvas (pixelN) {
 }
 
 
-let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-
-
-var canvas = document.querySelector('.canvas');    
-
-if (isMobile) {
-    canvas.style.height = "390px";
-    canvas.style.width = "390px";
-} else {
-    canvas.style.height = "960px";
-    canvas.style.width = "960px";
-}
-
+var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
 createCanvas(16);
 
