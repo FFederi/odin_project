@@ -15,6 +15,9 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
+  a = parseInt(a);
+  b = parseInt(b);
+
   switch (operator) {
     case "+":
       return add(a, b);
@@ -27,7 +30,7 @@ function operate(operator, a, b) {
   }
 }
 
-var displayValue = "0";
+var displayValue = "";
 
 function updateDisplay(value) {
   displayValue = value;
@@ -37,18 +40,27 @@ function updateDisplay(value) {
 
 var buttons = document.querySelectorAll("button");
 
+var oper = "";
+var previousDisplay = 0;
+
 buttons.forEach((element) => {
   element.addEventListener("click", () => {
     if (element.classList.contains("operator")) {
-      var oper = "";
       switch (element.textContent) {
-        case ("+", "-", "*", "/"): {
+        case "+":
+        case "-":
+        case "*":
+        case "/": {
+          previousDisplay = displayValue;
           oper = element.textContent;
-          var previousDisplay = displayValue;
-          displayValue = "0";
+          displayValue = "";
+          break;
         }
-        case "C":
-          displayValue = "0";
+        case "C": {
+          previousDisplay = displayValue;
+          displayValue = "";
+          break;
+        }
         case "=":
           displayValue = operate(oper, previousDisplay, displayValue);
       }
