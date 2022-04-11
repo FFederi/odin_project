@@ -30,10 +30,10 @@ function operate(operator, a, b) {
   }
 }
 
-var displayValue = "";
+var displayValue = "0";
 
 function updateDisplay(value) {
-  displayValue = value;
+  displayValue = parseInt(value);
   var display = document.querySelector(".display");
   display.textContent = displayValue;
 }
@@ -42,6 +42,12 @@ var buttons = document.querySelectorAll("button");
 
 var oper = "";
 var previousDisplay = 0;
+var a = 0;
+var b = 0;
+
+var result = 1;
+
+var toOperate = [];
 
 buttons.forEach((element) => {
   element.addEventListener("click", () => {
@@ -51,22 +57,36 @@ buttons.forEach((element) => {
         case "-":
         case "*":
         case "/": {
-          previousDisplay = displayValue;
           oper = element.textContent;
-          displayValue = "";
-          break;
+          toOperate.push(displayValue);
+
+          if (toOperate.length === 2) {
+            result = operate(oper, toOperate[0], toOperate[1]);
+            toOperate = [result];
+
+            updateDisplay(result);
+            break;
+          } else {
+            displayValue = "0";
+            updateDisplay(displayValue);
+            break;
+          }
         }
         case "C": {
-          previousDisplay = displayValue;
-          displayValue = "";
+          displayValue = "0";
+          updateDisplay(displayValue);
+
           break;
         }
         case "=":
-          displayValue = operate(oper, previousDisplay, displayValue);
+          result = operate(oper, toOperate[0], displayValue);
+          toOperate = [];
+          updateDisplay(result);
+          result = 0;
       }
     } else {
       displayValue += element.textContent;
+      updateDisplay(displayValue);
     }
-    updateDisplay(displayValue);
   });
 });
