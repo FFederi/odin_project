@@ -1,0 +1,108 @@
+@font-face {
+  font-family: logoFont;
+  src: url(https://cdn.statically.io/gh/TheOdinProject/theodinproject/efdc2888072f409e687d31dc580595dbe4fe0ff4/app/assets/fonts/Norse-Bold.otf);
+}
+
+body {
+  display: flex;
+  margin: 0px;
+}
+
+.left-image {
+  position: relative;
+}
+
+.odin-logo {
+  position: absolute;
+  background-color: black;
+  top: 250px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.odin-logo img {
+  height: 200px;
+}
+
+.odin-logo p {
+  color: white;
+  font-size: 160px;
+  margin: 0px;
+  font-family: logoFont;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.right-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.right-form form {
+  box-shadow: 10px 10px 8px #888888;
+}
+
+.right-form ul {
+  padding: 0px;
+}
+
+.right-form ul div {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 10px;
+}
+
+.right-form ul li {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border-color: lightgrey;
+  border-radius: 4px;
+  border-width: 1px;
+  height: 20px;
+}
+
+label {
+  font-size: 11px;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+.header {
+  width: 600px;
+}
+
+.header,
+form li,
+.footer {
+  margin-left: 40px;
+}
+
+button {
+  width: 200px;
+  height: 50px;
+  border: 0px;
+  border-radius: 10px;
+  background-color: #596d48;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+p {
+  font-weight: bold;
+}
+
+.header p {
+  font-size: 23px;
+}
