@@ -10,9 +10,16 @@ function Book(title, author, pages, read, libraryIndex) {
   this.pages = pages;
   this.read = Boolean(read);
   this.libraryIndex = libraryIndex;
+  this.toggleRead = function () {
+    if (this.read) {
+      Object.assign(this, { read: false });
+    } else {
+      Object.assign(this, { read: true });
+    }
+  };
   this.info = function () {
-    return `${title} by ${author}, ${pages} pages, ${
-      read ? "read" : "not yet read"
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${
+      this.read ? "read" : "not yet read"
     }`;
   };
 }
@@ -26,19 +33,7 @@ function closeForm() {
 }
 
 function addBookToLibrary(book) {
-  function addDeleteButton(bookDiv) {
-    const butt = document.createElement("button");
-    butt.onclick = deleteBook();
-    butt.appendChild(document.createTextNode("Delete"));
-    bookDiv.appendChild(butt);
-  }
-  const containerDiv = document.getElementsByClassName("container")[0];
-  const bookDiv = document.createElement("div");
-  const newContent = document.createTextNode(book.info());
-  bookDiv.setAttribute("data", book.libraryIndex);
-  bookDiv.appendChild(newContent);
-  addDeleteButton(bookDiv);
-  containerDiv.appendChild(bookDiv);
+  myLibrary.push(book);
 }
 
 function addBookFromForm() {
@@ -47,18 +42,54 @@ function addBookFromForm() {
   var author = document.getElementById("author").value;
   var pagesn = document.getElementById("pagesn").value;
   var read = document.getElementById("read").value;
-  var index = length(myLibrary);
+  var index = myLibrary.length;
   const formBook = new Book(title, author, pagesn, read ? true : false, index);
-  myLibrary.push(formBook);
   addBookToLibrary(formBook);
+  showBookOnPage(formBook);
 }
 
-function deleteBook() {}
+function showBookOnPage(book) {
+  function addDeleteButton(bookDiv) {
+    const butt = document.createElement("button");
+    butt.appendChild(document.createTextNode("Delete"));
+    butt.addEventListener("click", function () {
+      parentDiv = this.closest("div");
+      myLibrary.splice(parentDiv.getAttribute("data"), 1);
+      for (i in myLibrary) {
+        myLibrary[i].libraryIndex = parseInt(i);
+      }
+      update();
+    });
+    bookDiv.appendChild(butt);
+  }
 
-function showBooksOnPage() {
+  function toggleReadButton(bookDiv) {
+    const tbutt = document.createElement("button");
+    tbutt.appendChild(document.createTextNode("Toggle read"));
+    tbutt.addEventListener("click", function () {
+      parentDiv = this.closest("div");
+      myLibrary[parentDiv.getAttribute("data")].toggleRead();
+      update();
+    });
+    bookDiv.appendChild(tbutt);
+  }
+  const containerDiv = document.getElementsByClassName("container")[0];
+  const bookDiv = document.createElement("div");
+  const newContent = document.createTextNode(book.info());
+  bookDiv.setAttribute("data", book.libraryIndex);
+  bookDiv.appendChild(newContent);
+  addDeleteButton(bookDiv);
+  toggleReadButton(bookDiv);
+  containerDiv.appendChild(bookDiv);
+}
+
+function update() {
+  const containerDiv = document
+    .getElementsByClassName("container")[0]
+    .replaceChildren();
   for (el of myLibrary) {
-    addBookToLibrary(el);
+    showBookOnPage(el);
   }
 }
 
-showBooksOnPage();
+update();
