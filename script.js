@@ -5,39 +5,76 @@ const gameBoard = (() => {
     [0, 0, 0],
   ];
 
-  return { board };
-})();
+  const getBoard = () => board;
 
-const displayController = (() => {
-  return {};
+  const printBoard = () => {
+    console.log(board);
+  };
+
+  const markCell = (x, y) => {
+    //cell is already marked
+    if (board[x][y]) return;
+
+    board[x][y] = 1;
+  };
+
+  return { printBoard, markCell, getBoard };
 })();
 
 const playerFactory = (name) => {
   return { name };
 };
 
-function init() {
-  function addElement(content) {
-    var newDiv = document.createElement("div");
+const gameController = (() => {
+  const players = [playerFactory("uno"), playerFactory("due")];
+  let activePlayer = players[0];
 
-    var newContent = document.createTextNode(`${content}`);
+  const getActivePlayer = () => activePlayer;
 
-    newDiv.appendChild(newContent);
+  const printNewRound = () => {
+    gameBoard.printBoard();
+    console.log(`it's ${getActivePlayer().name}'s turn!`);
+  };
 
-    newDiv.classList.add("cell");
+  const passTurn = () => {
+    activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  };
 
-    const board = document.getElementById("board");
-    board.appendChild(newDiv);
-  }
+  const playRound = (x, y) => {
+    gameBoard.markCell(x, y);
+    console.log(`${getActivePlayer().name} marked the cell at ${x}, ${y}`);
+    passTurn();
+    printNewRound();
+  };
 
-  for (t of gameBoard.board) {
-    for (e of t) {
-      addElement(e);
-    }
-  }
-}
+  printNewRound();
 
-init();
+  return { getActivePlayer, printNewRound, playRound };
+})();
 
-const p1 = playerFactory("uno");
-const p2 = playerFactory("due");
+// const displayController = (() => {
+//   const drawBoard = (board) => {};
+
+//   const init = () => {
+//     function addElement(content) {
+//       var newDiv = document.createElement("div");
+
+//       var newContent = document.createTextNode(`${content}`);
+
+//       newDiv.appendChild(newContent);
+
+//       newDiv.classList.add("cell");
+
+//       const board = document.getElementById("board");
+//       board.appendChild(newDiv);
+//     }
+
+//     for (t of gameBoard.board) {
+//       for (e of t) {
+//         addElement(e);
+//       }
+//     }
+//   };
+
+//   return { init };
+// })();
