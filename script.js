@@ -155,6 +155,11 @@ const gameController = (() => {
           getActivePlayer().name
         } tried to mark an already marked cell, try again`
       );
+      displayController.changeChatboxText(
+        `${
+          getActivePlayer().name
+        } tried to mark an already marked cell, try again`
+      );
       return;
     }
 

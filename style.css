@@ -4,6 +4,10 @@
   grid-template-rows: repeat(3, auto);
 }
 
+#chatbox {
+  text-align: center;
+}
+
 body {
   height: 100vh;
   display: flex;
