@@ -1,25 +1,32 @@
 const gameBoard = (() => {
-  const board = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ];
+  const initBoard = (y, x) => {
+    boardM.length = 0;
+    for (let i = 0; i < y; i++) {
+      var row = [];
+      for (let i = 0; i < x; i++) {
+        row.push(0);
+      }
+      boardM.push(row);
+    }
+  };
 
-  const getBoard = () => board;
+  const getBoard = () => boardM;
 
   const printBoard = () => {
-    console.log(board);
+    console.log(boardM);
   };
 
   const markCell = (y, x) => {
     //cell is already marked
-    if (board[y][x]) return false;
+    if (boardM[y][x]) return false;
 
-    board[y][x] = gameController.getActivePlayer().sign;
+    boardM[y][x] = gameController.getActivePlayer().sign;
     return true;
   };
+  var boardM = [];
+  initBoard(3, 3);
 
-  return { printBoard, markCell, getBoard };
+  return { printBoard, markCell, getBoard, initBoard };
 })();
 
 const playerClass = (name, sign) => {
@@ -29,6 +36,7 @@ const playerClass = (name, sign) => {
 const displayController = (() => {
   const board = document.getElementById("board");
   const chatbox = document.getElementById("chatbox");
+  const resetButton = document.getElementById("restart");
 
   const changeChatboxText = (text) => {
     chatbox.textContent = "";
@@ -71,7 +79,13 @@ const displayController = (() => {
 
     gameController.playRound(selectedCellY, selectedCellX);
   }
+
+  function clickHandlerResetButton() {
+    gameBoard.initBoard(3, 3);
+    displayController.drawBoard();
+  }
   board.addEventListener("click", clickHandlerBoard);
+  resetButton.addEventListener("click", clickHandlerResetButton);
 
   drawBoard();
   return { drawBoard, changeChatboxText };
@@ -83,10 +97,6 @@ const gameController = (() => {
 
   const getActivePlayer = () => activePlayer;
 
-  // const printNewRound = () => {
-  //   console.log(`it's ${getActivePlayer().name}'s turn!`);
-  // };
-
   const passTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
   };
@@ -95,7 +105,7 @@ const gameController = (() => {
     var board = gameBoard.getBoard();
 
     for (let i = 0; i < 3; i++) {
-      // Check row
+      // Check rows
       if (
         (board[i][0] === board[i][1] &&
           board[i][1] === board[i][2] &&
@@ -158,7 +168,7 @@ const gameController = (() => {
       displayController.changeChatboxText(
         `${
           getActivePlayer().name
-        } tried to mark an already marked cell, try again`
+        } tried to mark an already marked cell, try again```
       );
       return;
     }
@@ -176,8 +186,6 @@ const gameController = (() => {
       return;
     }
     passTurn();
-
-    // printNewRound();
   };
 
   return { getActivePlayer, playRound };
