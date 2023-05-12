@@ -29,8 +29,8 @@ const gameBoard = (() => {
   return { printBoard, markCell, getBoard, initBoard };
 })();
 
-const playerClass = (name, sign) => {
-  return { name, sign };
+const playerClass = (name, sign, ai = false) => {
+  return { name, sign, ai };
 };
 
 const displayController = (() => {
@@ -92,7 +92,10 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  const players = [playerClass("Player 1", 1), playerClass("Player 2", 2)];
+  const players = [
+    playerClass("Player 1", 1),
+    playerClass("TicTacGPToe", 2, (ai = true)),
+  ];
   var activePlayer = players[0];
 
   const getActivePlayer = () => activePlayer;
@@ -186,7 +189,31 @@ const gameController = (() => {
       return;
     }
     passTurn();
+
+    if (getActivePlayer().ai) {
+      const test = AIController.randomMove();
+      gameController.playRound(test[0], test[1]);
+    }
   };
 
   return { getActivePlayer, playRound };
+})();
+
+const AIController = (() => {
+  const randomMove = () => {
+    //return an array with (y,x) of a random cell with value 0
+    boardNow = gameBoard.getBoard();
+    possibleMovesArray = [];
+    for (let i = 0; i < boardNow.length; i++) {
+      for (let j = 0; j < boardNow[0].length; j++) {
+        if (boardNow[i][j] === 0) {
+          possibleMovesArray.push([i, j]);
+        }
+      }
+    }
+    return possibleMovesArray[
+      Math.floor(Math.random() * possibleMovesArray.length)
+    ];
+  };
+  return { randomMove };
 })();
