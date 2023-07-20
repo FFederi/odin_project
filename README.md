@@ -1,3 +1,3 @@
 # odin_project
 
-Contains all projects and excersises I made for Odin Project.
+Contains all projects and exercises I made for Odin Project.
