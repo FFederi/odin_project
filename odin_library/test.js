@@ -26,6 +26,7 @@ function Book(title, author, pages, read, libraryIndex) {
 
 function openForm() {
   document.getElementById("myForm").style.display = "flex";
+  makeValid();
 }
 
 function closeForm() {
@@ -81,6 +82,32 @@ function showBookOnPage(book) {
   addDeleteButton(bookDiv);
   toggleReadButton(bookDiv);
   containerDiv.appendChild(bookDiv);
+}
+
+function makeValid() {
+  const title = document.getElementById("title");
+  const pagesn = document.getElementById("pagesn");
+  const author = document.getElementById("author");
+  const read = document.getElementById("read");
+
+  function addValidityCheckToElement(element, errorMessage) {
+    element.addEventListener("input", (event) => {
+      if (element.validity.typeMismatch) {
+        element.setCustomValidity(errorMessage);
+      } else {
+        element.setCustomValidity("");
+      }
+    });
+  }
+
+  function addValidity() {
+    addValidityCheckToElement(title, "Please set a title");
+    addValidityCheckToElement(pagesn, "Please set a page number");
+    addValidityCheckToElement(author, "Please set an author");
+    addValidityCheckToElement(read, "Please set if read");
+  }
+
+  addValidity();
 }
 
 function update() {

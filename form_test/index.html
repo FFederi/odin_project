@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <script src="validation.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="" method="get" class="form">
+      <div class="form">
+        <label for="country">Enter your country: </label>
+        <input type="text" name="country" id="country" required />
+        <span class="error" aria-live="polite"></span>
+      </div>
+
+      <div class="form">
+        <label for="zipcode">Enter your zip code: </label>
+        <input type="text" name="zipcode" id="zipcode" required />
+        <span class="error" aria-live="polite"></span>
+      </div>
+
+      <div class="form">
+        <label for="email">Enter your email: </label>
+        <input type="email" name="email" id="email" required />
+        <span class="error" aria-live="polite"></span>
+      </div>
+
+      <div class="form">
+        <label for="password">Enter your password: </label>
+        <input type="password" name="password" id="password" required />
+        <span class="error" aria-live="polite"></span>
+      </div>
+
+      <div class="form">
+        <label for="password-repeat">Re-enter your password: </label>
+        <input
+          type="password"
+          name="password-repeat"
+          id="password-repeat"
+          required
+        />
+        <span class="error" aria-live="polite"></span>
+      </div>
+
+      <div class="form">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </body>
+</html>
