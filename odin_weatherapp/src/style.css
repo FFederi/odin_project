@@ -1,0 +1,17 @@
+input:invalid {
+  background-color: #fdd;
+  border: 2px red solid;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.weather {
+  font-size: 40px;
+  font-weight: bold;
+}
