@@ -226,8 +226,8 @@ class Tree {
       return x;
     });
     for (let n of nodes) {
-      var diff = this.height(n.left) - this.height(n.right);
-      if (diff != 0) {
+      var diff = Math.abs(this.height(n.left) - this.height(n.right));
+      if (diff > 1) {
         console.log("tree is not balanced");
         return false;
       }
@@ -278,6 +278,9 @@ function test() {
   //adding a value higher than the highest unbalance the tree,
   //this.buildTree can't create a balanced tree in these conditions
   testTree.insert(116754);
+  testTree.insert(11675443);
+  testTree.insert(1167544332);
+
   testTree.insert(1768);
 
   console.log("should be inbalanced");
